@@ -1,0 +1,27 @@
+body { padding: 0; margin: 0 }
+#unity-container { position: fixed; width: 100%; height: 100%; }
+#unity-canvas { width: 100%; height: 100%; background: #ffffff }
+#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+#unity-logo { width: 20vw; height: 20vw; background: url('unity-logo-light.png') no-repeat center; background-size: 100% 100%; }
+#unity-progress-bar-empty { 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 20vw; 
+    height: 1.3vw; 
+    margin-top: 25px; 
+    background: #e3effe; 
+    border-radius: 3.5px; 
+    position: relative; 
+}
+#unity-progress-bar-full { 
+    width: 0%; 
+    height: 100%; 
+    background: linear-gradient(to right, #D10028, #9933FF); 
+    border-radius: 3.5px; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    transition: width 0.3s;
+}
+
+#unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
