@@ -1,4 +1,10 @@
-body { padding: 0; margin: 0 }
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
 #unity-container { position: fixed; width: 100%; height: 100%; }
 #unity-canvas { width: 100%; height: 100%; background: #ffffff }
 #unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
@@ -23,5 +29,5 @@ body { padding: 0; margin: 0 }
     left: 0; 
     transition: width 0.3s;
 }
-
+#unity-footer { position: relative; width: 100vw; height: 5vw;}
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
