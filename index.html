@@ -1,158 +1,77 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fun Sphere | Yuzheng's Game Hub</title>
-  <style>
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    header {
-      background-color: #1e1e1e;
-      color: white;
-      padding: 0px;
-      text-align: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 100%;
-    }
-    nav {
-      background-color: #33ff47;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 100%;
-    }
-    nav a {
-      float: left;
-      display: block;
-      color: white;
-      text-align: center;
-      padding: 14px 20px;
-      text-decoration: none;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-    nav a:hover {
-      background-color: #D10028;
-      transform: scale(1.1);
-    }
-    main {
-      padding: 20px;
-      animation: fadeIn 1s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-    .content-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-    .iframe-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      min-width: 800px;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
-      flex: 1;
-    }
-    iframe {
-      position: absolute;
-      top: 2.5%;
-      left: 2.5%;
-      width: 95%;
-      height: 95%;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s;
-    }
-    iframe:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-    .text-container {
-      width: 90%;
-      margin-top: 20px;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    footer {
-      background-color: #9933FF;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-    }
-    @media (min-width: 1200px) {
-      main {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-      }
-      .text-container {
-        margin-top: 0;
-        margin-left: 20px;
-      }
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
-  <header>
-    <h1>🎈Fun Sphere🤣</h1>
-  </header>
-  <main>
-    <div class="content-container">
-      <h2>寻道 | Xun Dao</h2>
-      <div class="iframe-container">
-        <iframe src="game.html?gm=XunDao"></iframe>
-      </div>
+    <div id="unity-container">
+        <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-warning"></div>
     </div>
-    <div class="text-container">
-      <section>
-        <h2>Welcome to Xun Dao</h2>
-        <p>Welcome to <strong>Xun Dao</strong>, a Global Game Jam 2022 creation with the theme of "Duality". 🌟 Experience the power of Yin and Yang as you battle unique monsters. 🐉</p>
-      
-        <p>Maintain balance between Yin and Yang while attacking enemies with three types of attacks:</p>
-        <ul>
-          <li><strong>Normal Attack</strong> - Basic attack with neutral effect ⚔️</li>
-          <li><strong>Yin Attack</strong> - Increases Yin power 🌙</li>
-          <li><strong>Yang Attack</strong> - Increases Yang power ☀️</li>
-        </ul>
-      
-        <p>Your goal: Defeat all monsters while managing your Yin and Yang levels to maintain balance. 🏆</p>
-      
-        <p>Controls:</p>
-        <ul>
-          <li><strong>WASD</strong> - Move 🕹️</li>
-          <li><strong>Q/E</strong> - Adjust difficulty at bonfire 🔥</li>
-          <li><strong>Q/E</strong> - Use Yin/Yang skills 🌙☀️</li>
-          <li><strong>Space</strong> - Dash 💨</li>
-        </ul>
-      
-        <p>Are you ready to embrace the challenge and harness the power of Yin and Yang to emerge victorious? ⚔️🌟</p>
-        <h2>Credits</h2>
-        <ul>
-          <li><strong>Game Developer:</strong> Yuzheng Chen</li>
-          <li><strong>Game Design:</strong> Kingdog</li>
-          <li><strong>Art Design:</strong> Little Laodi</li>
-        </ul>
-      </section>
-    </div>
-  </main>
-  <footer>
-  </footer>
+    <script>
+        window.addEventListener("load", function () {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("ServiceWorker.js");
+            }
+        });
+
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var loadingBar = document.querySelector("#unity-loading-bar");
+        var progressBarFull = document.querySelector("#unity-progress-bar-full");
+        var warningBanner = document.querySelector("#unity-warning");
+
+        var buildUrl = getUrlParameter('gm');
+        var loaderUrl = buildUrl + "/"+buildUrl+".loader.js";
+        var config = {
+            dataUrl: buildUrl + "/"+buildUrl+".data",
+            frameworkUrl: buildUrl + "/"+buildUrl+".framework.js",
+            codeUrl: buildUrl + "/"+buildUrl+".wasm",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "YuzhengChen",
+            productName: buildUrl,
+            productVersion: "1.0",
+        };
+
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
+        loadingBar.style.display = "block";
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+                loadingBar.style.display = "none";
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+    </script>
 </body>
 </html>
